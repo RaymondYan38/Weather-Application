@@ -12,6 +12,11 @@ import tkinter as tk
 import time
 from PIL import Image, ImageTk
 from urllib.request import urlopen
+from dotenv import load_dotenv
+import os
+
+load_dotenv(".env")
+KEY = os.getenv("WEATHER_API_KEY")
 
 class WeatherApp:
     """An object that creates an user interactive GUI relating to weather conditions
@@ -63,7 +68,7 @@ class WeatherApp:
             canvas: A tkinter window
         """
         city = self.textfield.get()
-        api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=7d954aeee23d5800d55ca1ac1c7d2b1b"
+        api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + KEY
         self.json_data = requests.get(api).json()
         cod = self.json_data['cod']
         if cod == '404':
